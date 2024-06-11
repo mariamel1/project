@@ -79,6 +79,63 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 500);
     }
   }
+  /*function startAutoMove() {
+    autoMoveTimer = setInterval(moveForward, autoMoveInterval);
+  }
+  function stopAutoMove() {
+    clearInterval(autoMoveTimer);
+  }
+  startAutoMove();
+  cardsContainer.addEventListener("mouseover", stopAutoMove);
+  cardsContainer.addEventListener("mouseout", startAutoMove);*/
+  nextButton.addEventListener("click", moveForward);
+  prevButton.addEventListener("click", moveBackward);
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const nextButton = document.getElementById("nextButton2");
+  const prevButton = document.getElementById("prevButton2");
+  const cardsContainer = document.querySelector(".cards2");
+  const cards = document.querySelectorAll(".card2");
+  const cardWidth = cards[0].offsetWidth + 0;
+  const visibleCardCount = 4;
+  const autoMoveInterval = 5000; 
+  let isTransitioning = false;
+  let currentIndex = 0;
+
+  function moveForward() {
+    if (!isTransitioning) {
+      isTransitioning = true;
+      currentIndex++;
+      if (currentIndex >= cards.length) {
+        currentIndex = 0;
+      }
+      const offset = -currentIndex * cardWidth;
+      cardsContainer.style.transition = "transform 0.5s ease";
+      cardsContainer.style.transform = `translateX(${offset}px)`;
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 500);
+    }
+  }
+
+  function moveBackward() {
+    if (!isTransitioning) {
+      isTransitioning = true;
+      currentIndex--;
+      if (currentIndex < 0) {
+        currentIndex = cards.length - 1;
+      }
+      const offset = -currentIndex * cardWidth;
+      cardsContainer.style.transition = "transform 0.5s ease";
+      cardsContainer.style.transform = `translateX(${offset}px)`;
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 500);
+    }
+  }
+/*
   function startAutoMove() {
     autoMoveTimer = setInterval(moveForward, autoMoveInterval);
   }
@@ -87,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   startAutoMove();
   cardsContainer.addEventListener("mouseover", stopAutoMove);
-  cardsContainer.addEventListener("mouseout", startAutoMove);
+  cardsContainer.addEventListener("mouseout", startAutoMove);*/
   nextButton.addEventListener("click", moveForward);
   prevButton.addEventListener("click", moveBackward);
 });
